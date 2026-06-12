@@ -1,6 +1,6 @@
 
 function [SED,soft_margin] = find_parameters(dataframe, trheshold_q, ~)
-    
+    % This is from Martin et al., 2024
     % This functions provides the parameters needed to de-cluster the time series in hours, one can change to time steps if needed. 
     
     % INPUTS:
