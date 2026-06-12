@@ -1,3 +1,4 @@
+# Adopted and modified from Robert Jane's MultiHazard R package
 Design_Event_2D_Multi_Pop_splitt <- function(Data, Data_Con1, Data_Con4, Copula_Family_pop1, Copula_Family_pop2, Con1="Rainfall", Con2="OsWL", GPD_P1_var1, GPD_P1_var2, GPD_P2_var1, GPD_P2_var2, Rate_Con1=NA, Rate_Con4=NA, mu=365.25*24, Grid_x_min=NA, Grid_x_max=NA, Grid_y_min=NA, Grid_y_max=NA, Grid_x_interval=NA, Grid_y_interval=NA, RP, x_lab="Rainfall (mm)", y_lab="O-sWL (mNGVD 29)", x_lim_min=0, x_lim_max=10, y_lim_min=0, y_lim_max=500, Isoline_Probs="Sample", N=10^6, N_Ensemble=0, Sim_Max=10){
   
   # --- Preliminaries ---
