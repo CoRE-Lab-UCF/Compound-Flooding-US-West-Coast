@@ -153,7 +153,7 @@ Hourly time series containing:
 - Time
 - Rainfall
 - Storm surge
-- Runup
+- 2% Runup
 
 #### Atmospheric River Catalog
 
