@@ -4,8 +4,97 @@
 clear
 clc
 
-% -------------------------------------------------------------------------
-% Load input data
+
+%% Analysis settings
+Rf_Acc = 24;              % Rainfall accumulation period (hours)
+compound_window = 1.5;    % Half-width of compound event window (days)
+dec_tim = 1.5;            % Half-width of declustering window (days)
+
+RF_percentile = 90;
+nTWL_percentile = 90;
+
+%% Load time-series data
+load('Time_series_data.mat');
+
+%% Preallocate outputs
+nSites = numel(shp);
+
+POT_both_extreme = cell(nSites, 3);
+POT_RF_only_extreme = cell(nSites, 2);
+POT_NTTWL_only_extreme = cell(nSites, 2);
+
+%% Identify POT events for each site
+for loc = 1:nSites
+
+    Data = Time_series_data{loc,1};
+
+    % Calculate daily rainfall totals
+    dayIndex = floor(Data(:,1));
+    [uniqueDays, ~, idx] = unique(dayIndex);
+
+    dailyRainfall = [ ...
+        uniqueDays, ...
+        accumarray(idx, Data(:,2))];
+
+    % Define rainfall and nTWL thresholds
+    threshold_RF = prctile( ...
+        dailyRainfall(:,2), ...
+        RF_percentile);
+
+    nTWL = Data(:,5) + Data(:,6);
+
+    threshold_nTWL = prctile( ...
+        nTWL, ...
+        nTWL_percentile);
+
+    % Compound RF-nTWL POT events
+    out = find_POT_compound_RF_WLNC( ...
+        Data, ...
+        threshold_RF, ...
+        threshold_nTWL, ...
+        'RfAccHours', Rf_Acc, ...
+        'compound_window', compound_window, ...
+        'dec_tim', dec_tim, ...
+        'doPlots', false);
+
+    POT_both_extreme{loc,1} = out.POT;
+    POT_both_extreme{loc,2} = threshold_RF;
+    POT_both_extreme{loc,3} = threshold_nTWL;
+
+    % RF-only POT events
+    out_RF = find_POT_oneway_RF( ...
+        Data, ...
+        threshold_RF, ...
+        'RfAccHours', Rf_Acc, ...
+        'compound_window', compound_window, ...
+        'dec_tim', dec_tim, ...
+        'doPlots', false);
+
+    POT_RF_only_extreme{loc,1} = out_RF.POT;
+    POT_RF_only_extreme{loc,2} = threshold_RF;
+
+    % nTWL-only POT events
+    out_nTWL = find_POT_oneway_NTTWL( ...
+        Data, ...
+        threshold_nTWL, ...
+        'compound_window', compound_window, ...
+        'dec_tim', dec_tim, ...
+        'doPlots', false);
+
+    POT_NTTWL_only_extreme{loc,1} = out_nTWL.POT;
+    POT_NTTWL_only_extreme{loc,2} = threshold_nTWL;
+
+end
+
+%% Save outputs
+save( ...
+    'POT_both_extreme.mat', ...
+    'POT_both_extreme', ...
+    'POT_RF_only_extreme', ...
+    'POT_NTTWL_only_extreme');
+
+disp('POT event identification complete.');
+
 % -------------------------------------------------------------------------
 base_path = fullfile('data');
 
@@ -61,7 +150,7 @@ end
 save(fullfile(base_path,'Stratification','AR_data.mat'),'AR_data','-v6');
 save(fullfile(base_path,'Stratification','non_AR_data.mat'),'non_AR_data','-v6');
 
-%% Load data (or use the once generated above)
+%% Load data (or use the ones generated above)
 % Required files:
 %   AEP_Grid_all.mat
 %   AR_data.mat
