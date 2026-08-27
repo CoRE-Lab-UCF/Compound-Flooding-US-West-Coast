@@ -105,9 +105,9 @@ Marginal distributions are modeled independently for rainfall and water level us
 
 ---
 
-### 5. Design Event Generation
+### 5. Joint AEP estimation
 
-Design events are generated separately for AR and non-AR populations and combined through a mixed-population framework.(Maduwantha et al., 2024)
+Joint annual exceedance probabilities are calculated, and event combinations are generated separately for AR and non-AR populations and combined through a mixed-population framework.(Maduwantha et al., 2024)
 
 #### Main Script
 
@@ -129,6 +129,29 @@ For each watershed:
 6. Generate Monte Carlo ensembles of design events.
 
 
+### 6. Relative contribution calculation
+
+Relative contribution of ARs to the AEP is calculated at selected locations on the bivariate parametric space
+
+#### Main Script
+
+- `Main.m`
+
+#### Supporting Function
+
+- `calc_and_plot_AEP_AR_nonAR_site.m`
+
+
+
+### 7. Sensitivity analysis
+Bootstrap sampling for sensitivity analysis
+
+#### Main Scripts
+
+- `Multisite_Copula_fitting_and_sim_Splitted_SS_sensitivity_parellel.R`
+- `Main_parallel`
+
+
 
 ## Data Requirements
 
@@ -138,10 +161,7 @@ For each watershed:
 - Atmospheric River Catalog (Spatial footprints)
 
 
-
 ## Outputs
-
-### Event Databases
 
 - `POT_both_extreme.mat`
 - `POT_RF_only_extreme.mat`
