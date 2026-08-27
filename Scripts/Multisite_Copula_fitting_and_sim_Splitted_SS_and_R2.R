@@ -1,4 +1,4 @@
-setwd("H:/OneDrive - University of Central Florida/Analysis_AR_two_way_8_events_splitted_marg_comb_SS_Hmo/Copula_fitting")
+setwd("")
 library(VineCopula)
 library(VGAM)
 library(tweedie)
@@ -23,7 +23,7 @@ library(doParallel)
 library(foreach)
 source("Best_Copula.R")
 
-# Site 49 has issues
+
 nSites<-77
 
 
