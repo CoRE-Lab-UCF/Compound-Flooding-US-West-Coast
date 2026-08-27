@@ -86,7 +86,7 @@ Dependence structures between rainfall and water level are modeled separately fo
 5. Return the best copula family for each population.
 
 
-### 4. Marginal Distribution Modeling
+### 4. Marginal Distributions
 
 Marginal distributions are modeled independently for rainfall and water level using Generalized Pareto Distributions (GPD).
 
@@ -127,6 +127,8 @@ For each watershed:
 4. Generate AEP surfaces.
 5. Estimate most-likely design events.
 6. Generate Monte Carlo ensembles of design events.
+---
+
 
 
 ### 6. Relative contribution calculation
