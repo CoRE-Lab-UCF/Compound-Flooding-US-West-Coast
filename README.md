@@ -12,11 +12,11 @@ The workflow separates compound events into AR and non-AR populations and develo
 
 ### 1. POT Event Extraction
 
-The first step identifies rainfall-only, water-level-only, and compound rainfall–water-level extreme events from hourly time series.
+The first step identifies rainfall POT, nTWL POT, and compound rainfall–nTWL POT extreme events from hourly time series. For the main analysis, compound rainfall–nTWL POT extreme events are used
 
 #### Main Script
 
-- `Extract_POT_Events.m`
+- `Main.m`
 
 #### Functions
 
@@ -50,7 +50,7 @@ Compound events are classified as either Atmospheric River (AR) or non-AR events
 
 #### Main Script
 
-- `Stratify_AR_Events.m`
+- `Main.m`
 
 #### Procedure
 
@@ -111,7 +111,7 @@ Design events are generated separately for AR and non-AR populations and combine
 
 #### Main Script
 
-- `Run_Design_Event_Generation.R`
+- `Multisite_Copula_fitting_and_sim_Splitted_SS_and_R2.R`
 
 #### Supporting Function
 
@@ -128,47 +128,16 @@ For each watershed:
 5. Estimate most-likely design events.
 6. Generate Monte Carlo ensembles of design events.
 
-#### Return Periods
 
-- 2-year
-- 5-year
-- 10-year
-- 50-year
-- 100-year
-
-#### Ensemble Size
-
-- 1000 realizations per return period
-
----
 
 ## Data Requirements
 
-### Input Data
-
-#### Hydrologic Time Series
-
-Hourly time series containing:
-
-- Time
 - Rainfall
 - Storm surge
-- 2% Runup
+- 2% Runup (Significant wave height, wave period, beach slope)
+- Atmospheric River Catalog (Spatial footprints)
 
-#### Atmospheric River Catalog
 
-ERA5 Global Atmospheric River Catalog:
-
-- Atmospheric River occurrence maps
-- Spatial coordinates
-- Time information
-
-#### Watershed Information
-
-- Watershed centroids
-- Site locations
-
----
 
 ## Outputs
 
@@ -179,15 +148,9 @@ ERA5 Global Atmospheric River Catalog:
 - `POT_NTTWL_only_extreme.mat`
 - `AR_data.mat`
 - `non_AR_data.mat`
-
-### Statistical Model Outputs
-
 - Selected copula families
 - GPD thresholds
 - GPD parameters
-
-### Design Event Outputs
-
 - AEP surfaces
 - Most likely design events
 - Ensemble simulations
@@ -197,7 +160,6 @@ Saved in:
 - `AEP_Grid_all.mat`
 - `All_simulated_data.rds`
 
----
 
 ## Software Requirements
 
@@ -235,43 +197,6 @@ foreach
 
 ---
 
-## Repository Structure
-
-```text
-├── Creating_WLONC/
-│   └── Time_series_data.mat
-│
-├── Two_way_sampling/
-│   ├── Extract_POT_Events.m
-│   ├── find_POT_compound_RF_WLNC.m
-│   ├── find_POT_oneway_RF.m
-│   ├── find_POT_oneway_NTTWL.m
-│   └── POT_both_extreme.mat
-│
-├── Stratification/
-│   ├── Stratify_AR_Events.m
-│   ├── AR_data.mat
-│   └── non_AR_data.mat
-│
-├── Copula_fitting/
-│   ├── Best_Copula.R
-│   ├── GPD_Threshold_Tails.R
-│   ├── fit_gpd_cdf.R
-│   ├── inv_gpd_cdf.R
-│   ├── Design_Event_2D_Multi_Pop_splitt.R
-│   └── Run_Design_Event_Generation.R
-│
-└── Outputs/
-    ├── AEP_Grid_all.mat
-    └── All_simulated_data.rds
-```
-
----
-
 ## Author
 
 Pravin Maduwantha
-
-University of Central Florida
-
-Department of Civil, Environmental, and Construction Engineering
