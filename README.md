@@ -1,4 +1,4 @@
-# Atmospheric River Compound Flood Analysis – U.S. West Coast
+# Compound flooding from Atmospheric Rivers – U.S. West Coast
 
 ## Overview
 
