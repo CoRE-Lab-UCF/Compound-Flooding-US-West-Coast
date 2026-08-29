@@ -333,9 +333,9 @@ for (i in sites) {
         plot = FALSE
       )
 
-
-      # Repeat the resampling when AR and non-AR tails have the specified
-      # incompatible shape combination
+      # Given the small sample size in non-AR sample, the GPD fit gives a positive shape parameter with 
+      # unrealistic extreme tails
+      # Repeat the resampling if: Non-AR sample has a positive shape parameter and AR sample has a negative (bounded)
       bad_Hmo <- (
         non_AR_GPD_cdf_Hmo$xi > 0 &&
         AR_GPD_cdf_Hmo$xi < 0
